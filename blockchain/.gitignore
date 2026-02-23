@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+db.sqlite3
+
+# Environment variables
+.env
+
+# Django
+media/
+staticfiles/
+
+# Node / React
+node_modules/
+dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Hardhat / Blockchain
+artifacts/
+cache/
+coverage/
+types/
+bundle/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
