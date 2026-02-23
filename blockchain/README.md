@@ -1,57 +1,283 @@
-# Sample Hardhat 3 Beta Project (`node:test` and `viem`)
+# 🔐 ZeroID – Secure Certificate Management System
 
-This project showcases a Hardhat 3 Beta project using the native Node.js test runner (`node:test`) and the `viem` library for Ethereum interactions.
+ZeroID is a blockchain-powered certificate issuance and verification platform that ensures tamper-proof academic credentials using:
 
-To learn more about the Hardhat 3 Beta, please visit the [Getting Started guide](https://hardhat.org/docs/getting-started#getting-started-with-hardhat-3). To share your feedback, join our [Hardhat 3 Beta](https://hardhat.org/hardhat3-beta-telegram-group) Telegram group or [open an issue](https://github.com/NomicFoundation/hardhat/issues/new) in our GitHub issue tracker.
+- 📦 IPFS (Decentralized Storage)
+- 🌳 Merkle Tree (Batch Integrity)
+- ⛓ Ethereum (Sepolia Testnet)
+- 🆔 DID Registry (Issuer Identity Verification)
+- ⚛ React Frontend
+- 🚀 FastAPI Backend
 
-## Project Overview
+---
 
-This example project includes:
+# 📚 Project Overview
 
-- A simple Hardhat configuration file.
-- Foundry-compatible Solidity unit tests.
-- TypeScript integration tests using [`node:test`](nodejs.org/api/test.html), the new Node.js native test runner, and [`viem`](https://viem.sh/).
-- Examples demonstrating how to connect to different types of networks, including locally simulating OP mainnet.
+ZeroID allows:
 
-## Usage
+👩‍💼 University Admin to:
+- Issue digital certificates
+- Verify certificates
+- Revoke certificates
+- View DID registry
 
-### Running Tests
+👨‍🎓 Students to:
+- View their certificates
+- See status (Valid / Revoked)
+- Confirm digital authenticity
 
-To run all the tests in the project, execute the following command:
+🌍 Public Users to:
+- Verify certificate authenticity using CID
 
-```shell
-npx hardhat test
+All certificates are:
+- Stored on IPFS
+- Hashed into a Merkle Tree
+- Root stored on Ethereum (Sepolia)
+- Cryptographically verifiable
+
+---
+
+# 🏗 Architecture
+
+Frontend (React)
+        ↓
+FastAPI Backend
+        ↓
+IPFS (Pinata)
+        ↓
+Merkle Tree (Python)
+        ↓
+Ethereum Smart Contracts (Sepolia)
+
+---
+
+# 💻 SYSTEM REQUIREMENTS (Windows)
+
+Install the following:
+
+## 1️⃣ Python 3.11+
+Download:
+https://www.python.org/downloads/
+
+During installation:
+✔ Add Python to PATH
+
+Verify:
+```bash
+python --version
 ```
 
-You can also selectively run the Solidity or `node:test` tests:
+---
 
-```shell
-npx hardhat test solidity
-npx hardhat test nodejs
+## 2️⃣ Node.js (LTS)
+Download:
+https://nodejs.org/
+
+Verify:
+```bash
+node -v
+npm -v
 ```
 
-### Make a deployment to Sepolia
+---
 
-This project includes an example Ignition module to deploy the contract. You can deploy this module to a locally simulated chain or to Sepolia.
+## 3️⃣ Git
+Download:
+https://git-scm.com/downloads
 
-To run the deployment to a local chain:
-
-```shell
-npx hardhat ignition deploy ignition/modules/Counter.ts
+Verify:
+```bash
+git --version
 ```
 
-To run the deployment to Sepolia, you need an account with funds to send the transaction. The provided Hardhat configuration includes a Configuration Variable called `SEPOLIA_PRIVATE_KEY`, which you can use to set the private key of the account you want to use.
+---
 
-You can set the `SEPOLIA_PRIVATE_KEY` variable using the `hardhat-keystore` plugin or by setting it as an environment variable.
+# 🚀 PROJECT SETUP
 
-To set the `SEPOLIA_PRIVATE_KEY` config variable using `hardhat-keystore`:
+Clone the repository:
 
-```shell
-npx hardhat keystore set SEPOLIA_PRIVATE_KEY
+```bash
+git clone https://github.com/YOUR_USERNAME/ZeroID-Secure-Certificate-Management-System.git
+cd ZeroID-Secure-Certificate-Management-System/blockchain
 ```
 
-After setting the variable, you can run the deployment with the Sepolia network:
+---
 
-```shell
-npx hardhat ignition deploy --network sepolia ignition/modules/Counter.ts
+# 🔑 ENVIRONMENT VARIABLES
+
+Create a `.env` file inside:
+
 ```
+blockchain/backend/blockchain/
+```
+
+Add:
+
+```
+SEPOLIA_PRIVATE_KEY=YOUR_PRIVATE_KEY
+SEPOLIA_RPC_URL=YOUR_ALCHEMY_RPC
+```
+
+⚠ Do NOT share private key publicly.
+
+---
+
+# 📦 BACKEND SETUP
+
+Navigate:
+
+```bash
+cd backend
+```
+
+Create virtual environment:
+
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+Install dependencies:
+
+```bash
+pip install fastapi uvicorn web3 requests python-dotenv
+```
+
+Start backend:
+
+```bash
+uvicorn api.main:app --reload
+```
+
+Open Swagger:
+
+```
+http://127.0.0.1:8000/docs
+```
+
+---
+
+# ⛓ SMART CONTRACT DEPLOYMENT (If Needed)
+
+Go to root blockchain folder:
+
+```bash
+cd ..
+npm install
+npx hardhat compile
+npx hardhat run scripts/deploy.js --network sepolia
+```
+
+---
+
+# ⚛ FRONTEND SETUP
+
+Navigate:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Open:
+
+```
+http://localhost:5173
+```
+
+---
+
+# 🧪 HOW TO DEMONSTRATE TO PROFESSOR
+
+## 1️⃣ Issue Certificate
+- Go to Issue Certificate
+- Enter:
+  - issuer_did
+  - student_name
+  - course
+  - university
+- Submit
+
+Shows:
+- CID
+- Merkle proof
+- Root
+- Blockchain tx hash
+
+---
+
+## 2️⃣ Verify Certificate
+- Copy CID
+- Paste into Verify page
+- Shows:
+  ✅ Digitally Verified (Green Tick)
+  OR
+  ❌ Revoked
+
+---
+
+## 3️⃣ Revoke Certificate
+- Enter CID
+- Submit
+- New Merkle root pushed on-chain
+
+Verify again → Status becomes REVOKED
+
+---
+
+# 🔍 Blockchain Verification
+
+Go to:
+https://sepolia.etherscan.io/
+
+Paste transaction hash to show:
+- Root update
+- On-chain proof
+
+---
+
+# 🔐 Security Model
+
+- Certificates immutable (IPFS CID)
+- Integrity guaranteed via Merkle Tree
+- Root anchored on Ethereum
+- Revocation updates root
+- DID ensures trusted issuers
+
+---
+
+# 📌 Features Implemented
+
+✔ Certificate Issuance  
+✔ On-chain Merkle Root Storage  
+✔ Certificate Verification  
+✔ Revocation Mechanism  
+✔ DID Registry  
+✔ React UI  
+✔ Role-based access  
+
+---
+
+# 🎓 Academic Relevance
+
+ZeroID demonstrates:
+
+- Blockchain for credential security
+- Decentralized storage
+- Cryptographic verification
+- Smart contract integration
+- Real-world revocation logic
+
+---
+
+# 👩‍💻 Developed By
+
+Saniya Mhatre  
+ZeroID – 2026
+
+---
+
+# 📄 License
+
+Academic Project – Educational Use
